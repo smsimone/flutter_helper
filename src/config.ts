@@ -2,7 +2,7 @@
 import * as vscode from 'vscode';
 
 class Configs {
-    private static readonly assetsFolderPath = 'flutter-helper.assets.folder_path';
+    private static readonly assetsFolderPath = 'flutter-localization-helper.assets.folder_path';
     private static readonly ln10config = 'l10n.yaml';
     /**
      * Contains the path to the assets folder, if defined
@@ -18,7 +18,7 @@ class Configs {
 
     constructor() {
         // Gets the config file
-        const config = vscode.workspace.getConfiguration('flutter-helper');
+        const config = vscode.workspace.getConfiguration('flutter-localization-helper');
 
 
         // Gets the assets folder path

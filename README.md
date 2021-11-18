@@ -11,3 +11,7 @@ Show all your translation keys and their localized value in the side bar and ope
 ### 0.0.1
 
 First release
+
+### 0.0.2
+
+Changed extension's name
