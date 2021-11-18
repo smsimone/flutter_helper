@@ -24,6 +24,23 @@
 					"default": "./assets"
 				}
 			}
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "flutter_helper",
+					"title": "Flutter helper",
+					"icon": "resources/logo.png"
+				}
+			]
+		},
+		"views": {
+			"flutter_helper": [
+				{
+					"id": "available_translations",
+					"name": "Translations"
+				}
+			]
 		}
 	},
 	"scripts": {

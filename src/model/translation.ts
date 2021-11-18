@@ -4,16 +4,24 @@ export default class Translation {
 
     private language: string;
 
-    private entries: TranslationEntry[];
+    private entries = new Map<string, TranslationEntry>();
 
     constructor() {
         this.language = '';
-        this.entries = [];
     }
 
     public getLanguage(): string { return this.language; }
 
-    public getEntries(): TranslationEntry[] { return this.entries; }
+    public getEntries(): TranslationEntry[] {
+        return Array.from(this.entries.values());
+    }
+
+    /**
+     * Returns the translationEntry of the given key
+     */
+    public getEntryOfKey(key: string): TranslationEntry | undefined {
+        return this.entries.get(key);
+    }
 
     /**
      * Parse the translation file and builds the translation entries for this language
@@ -45,21 +53,10 @@ export default class Translation {
                     entry.setPlaceholders(placeholders);
                 }
             }
-
-            this.entries.push(entry);
+            this.entries.set(key, entry);
         });
 
-        // Now we'll retrieve all the metadata
-        keys.filter((key) => key.startsWith('@')).forEach((key) => {
-            const description = json[key]['description'];
-            const placeholdersMap: object | undefined = json[key]['placeholders'];
-            if (placeholdersMap !== undefined) {
-                const placeholders = Object.keys(placeholdersMap);
-            }
-        });
-
-
-        console.log(`[Translation] Parsed ${this.language} translation file for a total of ${this.entries.length} keys`);
+        console.log(`[Translation] Parsed ${this.language} translation file for a total of ${this.entries.size} keys`);
     }
 }
 

@@ -35,12 +35,12 @@ class TranslationParser {
     /**
      * Parse all the translation files given and returns a list of translations
      */
-    public getTranslations(uris: vscode.Uri[]): Translation[] {
+    public async getTranslations(uris: vscode.Uri[]): Promise<Translation[]> {
         const translations: Translation[] = [];
 
-        uris.forEach((uri) => {
-            translations.push(this.parseTranslationFile(uri));
-        });
+        for await (const uri of uris) {
+            translations.push(await this.parseTranslationFile(uri));
+        }
 
         console.log(`[TranslationParser] Parsed ${translations.length} translations`);
 
@@ -51,10 +51,10 @@ class TranslationParser {
      * Reads the translation file and returns a list of translations.
      * @returns a list of translations
      */
-    private parseTranslationFile(filePath: vscode.Uri): Translation {
+    private async parseTranslationFile(filePath: vscode.Uri): Promise<Translation> {
         const translation = new Translation();
 
-        translation.parseTranslationFile(filePath);
+        await translation.parseTranslationFile(filePath);
 
         return translation;
     }
