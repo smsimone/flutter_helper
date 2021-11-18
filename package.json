@@ -1,6 +1,6 @@
 {
 	"name": "flutter-localization-helper",
-	"displayName": "Flutter helper",
+	"displayName": "Flutter localization helper",
 	"description": "Helps you to manage flutter assets and localization files",
 	"icon": "resources/store_logo.png",
 	"author": {
@@ -11,7 +11,7 @@
 		"type": "git",
 		"url": "https://github.com/smsimone/flutter_helper.git"
 	},
-	"version": "0.0.2",
+	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.62.0"
 	},
