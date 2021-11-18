@@ -17,7 +17,7 @@ export class TranslationProvider implements vscode.TreeDataProvider<TreeItem>{
             translations.forEach((t) => {
                 const translationEntry = t.getEntryOfKey(k);
                 if (translationEntry !== undefined) {
-                    group.addTranslation(t.getLanguage(), translationEntry.getValue());
+                    group.addTranslation(t.getLanguage(), translationEntry.getValue(), t.getFilePath(), translationEntry.getPosition());
                 }
             });
             this.groups.push(group);
@@ -27,7 +27,13 @@ export class TranslationProvider implements vscode.TreeDataProvider<TreeItem>{
         this.groups = this.groups.sort((a, b) => a.getKey().localeCompare(b.getKey()));
 
         this.data = this.groups.map(g => {
-            const children = g.getTranslations().map(translation => new TreeItem(translation.language, translation.translation));
+            const children = g.getTranslations().map(translation => {
+                return new TreeItem(translation.language, translation.translation, undefined, {
+                    title: 'Open translation file',
+                    command: 'flutterHelper.open_and_move',
+                    arguments: [translation.filePath, translation.position],
+                });
+            });
             return new TreeItem(g.getKey(), undefined, children);
         });
     }

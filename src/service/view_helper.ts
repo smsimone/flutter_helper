@@ -29,7 +29,6 @@ export function populateTranslationFilesView(translationFiles: string[]) {
             .createTreeView('available_files', {
                 treeDataProvider: provider
             });
-
     } catch (e) {
         console.error(`[FlutterHelper] Got error while creating tree view: ${e}`);
     }

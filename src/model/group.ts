@@ -1,3 +1,4 @@
+import * as vscode from 'vscode';
 
 export class Group {
     /**
@@ -20,10 +21,12 @@ export class Group {
     /**
      * Adds a translation to the given group
      */
-    public addTranslation(language: string, translation: string) {
+    public addTranslation(language: string, translation: string, filePath: vscode.Uri, position?: vscode.Position) {
         this.languages.push({
             language: language,
-            translation: translation
+            translation: translation,
+            filePath: filePath,
+            position: position
         });
     }
 
@@ -38,6 +41,7 @@ export class Group {
 
 interface GroupTranslation {
     language: string;
-
     translation: string;
+    filePath: vscode.Uri;
+    position: vscode.Position | undefined;
 }

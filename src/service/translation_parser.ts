@@ -52,7 +52,7 @@ class TranslationParser {
      * @returns a list of translations
      */
     private async parseTranslationFile(filePath: vscode.Uri): Promise<Translation> {
-        const translation = new Translation();
+        const translation = new Translation(filePath);
 
         await translation.parseTranslationFile(filePath);
 

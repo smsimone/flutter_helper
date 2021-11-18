@@ -4,17 +4,20 @@ export default class Translation {
 
     private language: string;
 
+    private filePath: vscode.Uri;
+
     private entries = new Map<string, TranslationEntry>();
 
-    constructor() {
+    constructor(filePath: vscode.Uri) {
         this.language = '';
+        this.filePath = filePath;
     }
 
     public getLanguage(): string { return this.language; }
 
-    public getEntries(): TranslationEntry[] {
-        return Array.from(this.entries.values());
-    }
+    public getFilePath(): vscode.Uri { return this.filePath; }
+
+    public getEntries(): TranslationEntry[] { return Array.from(this.entries.values()); }
 
     /**
      * Returns the translationEntry of the given key
@@ -32,15 +35,21 @@ export default class Translation {
         this.language = path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.'));
 
         const fileContent = (await vscode.workspace.fs.readFile(filePath)).toString();
-        // read fileContent as a json
+
+        const lines = fileContent.split("\n");
+
         const json = JSON.parse(fileContent);
 
         const keys = Object.keys(json);
 
         // For now we'll retrieve only the entries with a value
         keys.filter((key) => !key.startsWith('@')).forEach((key) => {
+            /// find the index of line in lines containing key
+            const line = lines.findIndex((line) => line.includes(key) && !line.startsWith("@"));
+
             const value = json[key];
-            const entry = new TranslationEntry(key, value);
+
+            const entry = new TranslationEntry(key, value, line === undefined || line === -1 ? undefined : new vscode.Position(line, 0));
 
             const metadata = json['@' + key];
 
@@ -71,15 +80,20 @@ class TranslationEntry {
 
     private placeholders: string[] | undefined;
 
+    private position: vscode.Position | undefined;
 
-    constructor(key: string, value: string) {
+
+    constructor(key: string, value: string, position?: vscode.Position) {
         this.key = key;
         this.value = value;
+        this.position = position;
     }
 
     public getKey(): string { return this.key; }
 
     public getValue(): string { return this.value; }
+
+    public getPosition(): vscode.Position | undefined { return this.position; }
 
     public getDescription(): string | undefined { return this.description; }
 
