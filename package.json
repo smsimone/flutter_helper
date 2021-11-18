@@ -1,13 +1,27 @@
 {
-	"name": "flutter-assets-helper",
-	"displayName": "flutter-assets-helper",
+	"name": "flutter-helper",
+	"displayName": "Flutter helper",
 	"description": "Helps you to manage flutter assets and localization files",
+	"icon": "resources/store_logo.png",
+	"author": {
+		"name": "smsimone"
+	},
+	"publisher": "smsimone",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/smsimone/flutter_helper.git"
+	},
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.62.0"
 	},
 	"categories": [
 		"Other"
+	],
+	"keywords": [
+		"flutter",
+		"localization",
+		"helper"
 	],
 	"activationEvents": [
 		"workspaceContains:pubspec.yaml"
@@ -18,7 +32,7 @@
 		"configuration": {
 			"title": "Flutter assets helper configs",
 			"properties": {
-				"flutter-assets-helper.assets.folder_path": {
+				"flutter-helper.assets.folder_path": {
 					"type": "string",
 					"description": "Path to the flutter assets folder",
 					"default": "./assets"
