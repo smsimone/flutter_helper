@@ -39,6 +39,10 @@
 				{
 					"id": "available_translations",
 					"name": "Translations"
+				},
+				{
+					"id": "available_files",
+					"name": "Translation files"
 				}
 			]
 		}

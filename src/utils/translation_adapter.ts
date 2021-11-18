@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { Group } from '../model/group';
 import Translation from '../model/translation';
+import { TreeItem } from '../model/treeitem';
 
 
 export class TranslationProvider implements vscode.TreeDataProvider<TreeItem>{
@@ -42,20 +43,5 @@ export class TranslationProvider implements vscode.TreeDataProvider<TreeItem>{
             return this.data;
         }
         return element.children;
-    }
-}
-
-
-class TreeItem extends vscode.TreeItem {
-    children: TreeItem[] | undefined;
-
-    constructor(label: string, description?: string | undefined, children?: TreeItem[]) {
-        super(
-            label,
-            children === undefined ? vscode.TreeItemCollapsibleState.None :
-                vscode.TreeItemCollapsibleState.Expanded,
-        );
-        this.children = children;
-        this.description = description;
     }
 }
