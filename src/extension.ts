@@ -25,7 +25,21 @@ export function activate(context: vscode.ExtensionContext) {
 		editor.revealRange(newSelection);
 	});
 
+	/**
+	 * Registers a command to manually reload the localization data
+	 */
+	vscode.commands.registerCommand('flutterHelper.reload', () => { loadData(); });
 
+	loadData();
+}
+
+
+export function deactivate() { }
+
+/**
+ * Loads the translation files and populates the translation view
+ */
+function loadData() {
 	configs.initialized.then(async () => {
 		const files = await translationParser.getTranslationFiles();
 		populateTranslationFilesView(files.map(f => f.path));
@@ -33,6 +47,3 @@ export function activate(context: vscode.ExtensionContext) {
 		populateTranslationsView(translations);
 	});
 }
-
-
-export function deactivate() { }

@@ -20,10 +20,8 @@ class Configs {
         // Gets the config file
         const config = vscode.workspace.getConfiguration('flutter-localization-helper');
 
-
         // Gets the assets folder path
         this._assetsFolderPath = config.get(Configs.assetsFolderPath);
-
 
         this._initialized = this.readLocalizationFile();
     }

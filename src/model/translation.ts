@@ -36,6 +36,11 @@ export default class Translation {
 
         const fileContent = (await vscode.workspace.fs.readFile(filePath)).toString();
 
+        if (fileContent.length === 0) {
+            console.log(`File ${filePath} is empty`);
+            return;
+        }
+
         const lines = fileContent.split("\n");
 
         const json = JSON.parse(fileContent);

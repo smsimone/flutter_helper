@@ -10,7 +10,14 @@ export class TranslationProvider implements vscode.TreeDataProvider<TreeItem>{
     data: TreeItem[] = [];
 
     constructor(translations: Translation[]) {
-        const keys = translations[0].getEntries().map(e => e.getKey());
+        if (translations.filter((t) => t.getEntries().length === 0)) {
+            console.log(`There's a translation file that's not correctly formatted.`);
+            vscode.window.showInformationMessage('There\'s a translation file that\'s not correctly formatted.');
+        }
+
+        const correctTranslations = translations.sort((t1, t2) => t1.getEntries().length > t2.getEntries().length ? -1 : 1)[0];
+
+        const keys = correctTranslations.getEntries().map(e => e.getKey());
 
         keys.forEach((k) => {
             const group = new Group(k);
@@ -36,6 +43,7 @@ export class TranslationProvider implements vscode.TreeDataProvider<TreeItem>{
             });
             return new TreeItem(g.getKey(), undefined, children);
         });
+
     }
 
     onDidChangeTreeData?: vscode.Event<void | TreeItem | null | undefined> | undefined;
